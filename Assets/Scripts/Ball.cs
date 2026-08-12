@@ -1,0 +1,120 @@
+using UnityEngine;
+using System.Collections.Generic;
+public class Ball : MonoBehaviour
+{
+    public static List<Ball> balls = new List<Ball>();
+    [SerializeField] BoxCollider2D paddleColl;
+    Ball()
+    {
+
+    }
+
+   // int iSize = 5;
+    float fContactX;
+    float fPaddleCenterX;
+    float fHitOffsetFromPaddleCenter;
+    float fHalfWidthPaddle;
+    float fPaddleHitRelativePosX;
+    Vector2 v2DirectionNormalized;
+    Rigidbody2D ballRb;
+
+    ContactPoint2D contactPoint;
+
+    Vector2 m_v2LinVelo;
+    
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake()
+    {
+        balls.Add(this);
+        ballRb = this.GetComponent<Rigidbody2D>();
+
+        ballRb.linearVelocity = Vector2.down * 2;
+
+         m_v2LinVelo = new Vector2();
+       // m_v2LinVelo = ballRb.linearVelocity;
+
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+       // Debug.Log(ballRb.linearVelocity);
+        m_v2LinVelo = ballRb.linearVelocity;
+    }
+
+    void HitCalculation(Collision2D collision)
+    {
+
+
+        /*linVel = new Vector2(ballRb.linearVelocity.x, ballRb.linearVelocity.y);*/
+
+        contactPoint = collision.contacts[0];
+
+
+        //normale
+       Vector2 p_v2ContactNormal = contactPoint.normal;
+
+        //Reflektion bzw Skalarprodukt
+
+        Vector2 p_v2ReflectedlinVel = new Vector2();
+
+       p_v2ReflectedlinVel = Vector2.Reflect(m_v2LinVelo, p_v2ContactNormal); //ballRb.linearVelocity
+
+        Debug.Log("Reflected " + p_v2ReflectedlinVel);
+
+        //if p_v2ReflectedlinVel 
+        ballRb.linearVelocity = p_v2ReflectedlinVel;
+        m_v2LinVelo = ballRb.linearVelocity; //speichern für Hits vor dem FixedUpdate
+    }
+
+    void PaddleHitCalculation(Collision2D collision)
+    {
+        contactPoint = collision.contacts[0];
+        fContactX = contactPoint.point.x;
+        fPaddleCenterX = paddleColl.bounds.center.x;
+
+        fHitOffsetFromPaddleCenter = fContactX - fPaddleCenterX;
+
+        fHalfWidthPaddle = paddleColl.bounds.extents.x;
+
+        fPaddleHitRelativePosX = fHitOffsetFromPaddleCenter / fHalfWidthPaddle;
+
+        v2DirectionNormalized = new Vector2(fPaddleHitRelativePosX, 1f);
+
+    }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        Debug.Log("Contact Point: " + contactPoint.point);
+        Debug.Log(this.gameObject.name);
+        Debug.Log("Wie viele Kontakte " + collision.contactCount);
+
+      
+
+        if (collision.collider != paddleColl)
+        {
+            HitCalculation(collision);
+            return;
+        }
+        PaddleHitCalculation(collision);
+
+       
+        
+  //      Debug.Log(v2DirectionNormalized);
+//     float fCurrentSpeed = ballRb.linearVelocity.magnitude;
+
+        ballRb.linearVelocity = v2DirectionNormalized * 2;
+            
+          //  v2DirectionNormalized * fCurrentSpeed;
+
+        // Vector2
+        
+
+      
+        Debug.Log("Paddle Relative Position " + fPaddleHitRelativePosX);
+
+    }
+}
