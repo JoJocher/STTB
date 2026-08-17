@@ -4,12 +4,13 @@ public class Ball : MonoBehaviour
 {
     public static List<Ball> balls = new List<Ball>();
     [SerializeField] BoxCollider2D paddleColl;
-    Ball()
+    /*Ball(int speedMult)
     {
+        m_iSpeedMultiplier = speedMult;
+    }*/
 
-    }
-
-   // int iSize = 5;
+    public int m_iSpeedMultiplier = 2;
+    
     float fContactX;
     float fPaddleCenterX;
     float fHitOffsetFromPaddleCenter;
@@ -27,9 +28,10 @@ public class Ball : MonoBehaviour
     void Awake()
     {
         balls.Add(this);
+       // Debug.Log(balls.Count);
         ballRb = this.GetComponent<Rigidbody2D>();
 
-        ballRb.linearVelocity = Vector2.down * 2;
+        ballRb.linearVelocity = Vector2.down * m_iSpeedMultiplier;
 
          m_v2LinVelo = new Vector2();
        // m_v2LinVelo = ballRb.linearVelocity;
@@ -42,6 +44,20 @@ public class Ball : MonoBehaviour
        // Debug.Log(ballRb.linearVelocity);
         m_v2LinVelo = ballRb.linearVelocity;
     }
+
+
+
+
+
+    public void SetMultiplier(int mult)
+    {
+        m_iSpeedMultiplier = mult;
+    }
+
+
+
+
+
 
     void HitCalculation(Collision2D collision)
     {
@@ -87,10 +103,11 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if (collision.gameObject.CompareTag("ball"))
+            return;
         Debug.Log("Contact Point: " + contactPoint.point);
-        Debug.Log(this.gameObject.name);
-        Debug.Log("Wie viele Kontakte " + collision.contactCount);
+      //  Debug.Log(this.gameObject.name);
+       // Debug.Log("Wie viele Kontakte " + collision.contactCount);
 
       
 
@@ -106,7 +123,7 @@ public class Ball : MonoBehaviour
   //      Debug.Log(v2DirectionNormalized);
 //     float fCurrentSpeed = ballRb.linearVelocity.magnitude;
 
-        ballRb.linearVelocity = v2DirectionNormalized * 2;
+        ballRb.linearVelocity = v2DirectionNormalized * m_iSpeedMultiplier;
             
           //  v2DirectionNormalized * fCurrentSpeed;
 
@@ -117,4 +134,11 @@ public class Ball : MonoBehaviour
         Debug.Log("Paddle Relative Position " + fPaddleHitRelativePosX);
 
     }
+
+
+void OnDisable()
+    {
+        balls.Remove(this);
+    }
+
 }

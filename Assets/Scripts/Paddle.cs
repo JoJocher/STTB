@@ -26,4 +26,10 @@ public class Paddle : MonoBehaviour
         thisPos.x = Camera.main.ScreenToWorldPoint(_v3Mouse).x;
         this.transform.position = thisPos;
     }
+
+   public void PaddleSize(float sizeMultiplicator)
+    {
+        Transform Paddle = this.GetComponent<Transform>();
+        Paddle.localScale = new Vector2 (Paddle.localScale.x * sizeMultiplicator, Paddle.localScale.y) ;
+    }
 }
