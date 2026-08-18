@@ -27,8 +27,9 @@ public class Ball : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        paddleColl = GameObject.FindGameObjectWithTag("paddle").GetComponent<BoxCollider2D>();
         balls.Add(this);
-       // Debug.Log(balls.Count);
+        Debug.Log("Ball Count: " + balls.Count);
         ballRb = this.GetComponent<Rigidbody2D>();
 
         ballRb.linearVelocity = Vector2.down * m_iSpeedMultiplier;
@@ -135,10 +136,18 @@ public class Ball : MonoBehaviour
 
     }
 
-
-void OnDisable()
+    void OnTriggerEnter2D(Collider2D coll)
     {
+        if (coll.gameObject.CompareTag("levelmanager"))
+            Destroy(this.gameObject);    
+    }
+
+    void OnDisable()
+    {
+        Debug.Log("Destroyed ball " + Ball.balls.IndexOf(this));
+        Debug.Log("Current ball count " + Ball.balls.Count);
         balls.Remove(this);
+        Debug.Log("Remaining Ball Count " + Ball.balls.Count);
     }
 
 }
