@@ -29,6 +29,7 @@ public abstract class Item : MonoBehaviour
 
     void DestroyItem()
     {
+        ScoreManager.Instance.AddPoint(PointType.item);
         Destroy(this.gameObject);
         Debug.Log("Destroyed");
     }

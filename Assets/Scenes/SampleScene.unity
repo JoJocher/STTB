@@ -2275,6 +2275,7 @@ GameObject:
   - component: {fileID: 1664449769}
   - component: {fileID: 1664449770}
   - component: {fileID: 1664449771}
+  - component: {fileID: 1664449772}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: levelmanager
@@ -2316,7 +2317,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -5.5}
+  m_Offset: {x: 0, y: -5.0634465}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2326,7 +2327,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 20, y: 1}
+  m_Size: {x: 20, y: 1.873107}
   m_EdgeRadius: 0
 --- !u!61 &1664449765
 BoxCollider2D:
@@ -2521,6 +2522,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6fb764f3ee7ca4aad5fe9bee5022f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUpManager
+--- !u!114 &1664449772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664449763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0e03a7e9f44af142882007f5f5d7e85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  m_iScore: 0
 --- !u!1001 &1743385591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3211,18 +3225,6 @@ PrefabInstance:
     - target: {fileID: 2614793749800583376, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4413470631202990178, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
-      propertyPath: m_Color.b
-      value: 0.9607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 4413470631202990178, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
-      propertyPath: m_Color.g
-      value: 0.9607844
-      objectReference: {fileID: 0}
-    - target: {fileID: 4413470631202990178, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
-      propertyPath: m_Color.r
-      value: 0.9607844
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

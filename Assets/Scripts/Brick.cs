@@ -37,6 +37,8 @@ public class Brick : MonoBehaviour
  
     }
 
+    
+
     void OnCollisionEnter2D()
     {
 
@@ -50,6 +52,8 @@ public class Brick : MonoBehaviour
             bricks.Remove(this);
             deadbricks.Add(this);
             itemFactory.ItemRandomizer(BrickTransform);
+
+            ScoreManager.Instance.AddPoint(PointType.brick);
 
         }
 
