@@ -27,4 +27,6 @@ public class LevelManager : MonoBehaviour
         m_iBrickCountOld = Brick.bricks.Count;
         BrickCounter.text = "Verbleibende Blöcke: " + Brick.bricks.Count;
     }
+
+    
 }
