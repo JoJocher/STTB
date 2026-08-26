@@ -56,14 +56,15 @@ public class PowerUpManager : MonoBehaviour
 
     void BackToNormal(TimedEffectType et, int callAmount)
     {
-
+       
         switch (et)
         {
             case TimedEffectType.paddlesize:
                 for (; callAmount > 0; callAmount--)
                 {
-                    GameObject.FindGameObjectWithTag("paddle").GetComponent<Paddle>().PaddleSize(0.8f);
-                    Debug.Log("call Amount ist " + callAmount);
+                    if (GameObject.FindGameObjectWithTag("paddle") != null)
+                        GameObject.FindGameObjectWithTag("paddle").GetComponent<Paddle>().PaddleSize(0.8f);
+                  //  Debug.Log("call Amount ist " + callAmount);
                 }
                 
                 //paddleSize Aufrufen;

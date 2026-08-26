@@ -22,6 +22,8 @@ public class Ball : MonoBehaviour
     ContactPoint2D contactPoint;
 
     Vector2 m_v2LinVelo;
+
+    [SerializeField] public bool m_bIsMenu; //{  get; set; }
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,11 +34,17 @@ public class Ball : MonoBehaviour
         Debug.Log("Ball Count: " + balls.Count);
         ballRb = this.GetComponent<Rigidbody2D>();
 
-        ballRb.linearVelocity = Vector2.down * m_iSpeedMultiplier;
+        m_v2LinVelo = new Vector2();
 
-         m_v2LinVelo = new Vector2();
+          
        // m_v2LinVelo = ballRb.linearVelocity;
 
+    }
+
+    void Start()
+    {
+        if (!m_bIsMenu)
+            StartMovement();
     }
 
     // Update is called once per frame
@@ -47,12 +55,20 @@ public class Ball : MonoBehaviour
     }
 
 
-
-
+    public void StartMovement()
+    {
+        ballRb.linearVelocity = Vector2.down * m_iSpeedMultiplier;
+    }
+    
+    public void StopMovement()
+    {
+        ballRb.linearVelocity = Vector3.zero;
+    }
 
     public void SetMultiplier(int mult)
     {
         m_iSpeedMultiplier = mult;
+
     }
 
 
