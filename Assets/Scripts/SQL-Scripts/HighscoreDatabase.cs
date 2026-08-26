@@ -29,6 +29,7 @@ public class HighscoreDatabase
         connection.Execute("INSERT INTO Highscores (playerName, Score) VALUES (?, ?);", pName, score);
     
         connection.Close();
+        Debug.Log("Highscore Saved: " + pName + score);
     }
 
     public List<HighscoreEntry> LoadHighscores()
@@ -36,7 +37,7 @@ public class HighscoreDatabase
         string path = Path.Combine(Application.persistentDataPath, "highscores.db");
 
         SQLiteConnection connection = new SQLiteConnection(path);
-        List<HighscoreEntry> highscores = connection.Query<HighscoreEntry>("SELECT Id, playerName, Score FROM Highscores ORDER BY Score DESC;");
+        List<HighscoreEntry> highscores = connection.Query<HighscoreEntry>("SELECT Id, playerName, Score FROM Highscores ORDER BY Score DESC, Id Asc;");
         connection.Close();
         return highscores;
 
