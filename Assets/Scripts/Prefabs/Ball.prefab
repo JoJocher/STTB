@@ -194,7 +194,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1525719861617101046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,4 +208,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ball
   paddleColl: {fileID: 2445733854043112073, guid: a8a64a4cda68f524e970d17c4ccffbe2, type: 3}
-  m_iSpeedMultiplier: 2
+  m_iSpeed: 2
+  m_bIsMenu: 0

@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
+//Test class for testing Database actions
 public class SQLTest : MonoBehaviour
 {
  void Start()
@@ -16,21 +17,16 @@ public class SQLTest : MonoBehaviour
       database.SaveHighscore("TestPlayer10", 460);
       database.SaveHighscore("TestPlayer11", 90);
 
-    List<HighscoreEntry> highscores = database.LoadHighscores();
+    List<HighscoreEntry> highscoreEntries = database.LoadHighscores();
 
-    foreach (HighscoreEntry entry in highscores)
-    {
-        Debug.Log(entry.playerName + " : " + entry.Score);
-    }
+    foreach (HighscoreEntry entry in highscoreEntries)
+        Debug.Log(entry.PlayerName + " : " + entry.Score);
+
     database.CleanHighscores();
 
-    highscores = database.LoadHighscores();
+    highscoreEntries = database.LoadHighscores();
 
-    foreach (HighscoreEntry entry in highscores)
-    {
-        Debug.Log("Cleared List: " + entry.playerName + " : " + entry.Score);
-    }
-
-
+    foreach (HighscoreEntry entry in highscoreEntries)
+        Debug.Log("Cleared List: " + entry.PlayerName + " : " + entry.Score);
   }
 }

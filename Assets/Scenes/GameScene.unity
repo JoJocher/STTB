@@ -173,7 +173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -504,7 +504,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -769,7 +769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -830,7 +830,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1123,6 +1123,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blocker (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1196409721874750433, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8617768017812078298, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.484
@@ -1222,7 +1226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1428,7 +1432,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2249,7 +2253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2310,7 +2314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2371,7 +2375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2432,7 +2436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2661,7 +2665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 577960340}
   m_Layer: 5
-  m_Name: PlayState
+  m_Name: PlayStateUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2681,10 +2685,10 @@ RectTransform:
   m_Children:
   - {fileID: 169525518}
   - {fileID: 365547489}
-  - {fileID: 676042667}
+  - {fileID: 1257175602}
   - {fileID: 286178069}
   - {fileID: 2087511651}
-  - {fileID: 1257175602}
+  - {fileID: 676042667}
   m_Father: {fileID: 1566108722}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2988,7 +2992,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3415,7 +3419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3434,7 +3438,6 @@ GameObject:
   - component: {fileID: 710118263}
   - component: {fileID: 710118262}
   - component: {fileID: 710118261}
-  - component: {fileID: 710118264}
   m_Layer: 5
   m_Name: Button - Menu
   m_TagString: Untagged
@@ -3556,18 +3559,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710118259}
   m_CullTransparentMesh: 1
---- !u!114 &710118264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 710118259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f08a69008dedf4f8fdd219bc60657b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuScript
 --- !u!1001 &767742600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3622,7 +3613,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3683,7 +3674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3881,7 +3872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4035,7 +4026,7 @@ GameObject:
   m_Component:
   - component: {fileID: 921403853}
   m_Layer: 5
-  m_Name: MenuState
+  m_Name: MenuStateUI
   m_TagString: menustate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4074,7 +4065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 924288846}
   m_Layer: 5
-  m_Name: LoseState
+  m_Name: LoseStateUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4113,6 +4104,10 @@ PrefabInstance:
     - target: {fileID: 1196409721874750433, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
       propertyPath: m_Name
       value: Blocker (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1196409721874750433, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8617768017812078298, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4213,7 +4208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4232,7 +4227,6 @@ GameObject:
   - component: {fileID: 943863971}
   - component: {fileID: 943863970}
   - component: {fileID: 943863969}
-  - component: {fileID: 943863968}
   m_Layer: 5
   m_Name: Button - Start
   m_TagString: Untagged
@@ -4260,18 +4254,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0, y: -93.48445}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &943863968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943863966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f08a69008dedf4f8fdd219bc60657b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuScript
 --- !u!114 &943863969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4418,6 +4400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brick (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4477,7 +4463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4633,7 +4619,7 @@ GameObject:
   - component: {fileID: 1133916978}
   - component: {fileID: 1133916977}
   m_Layer: 5
-  m_Name: Text - SubmittedTextFailed (TMP)
+  m_Name: Text - InvalidSubmittedText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4655,8 +4641,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000005722, y: -101.9}
-  m_SizeDelta: {x: 200, y: 19.5926}
+  m_AnchoredPosition: {x: 0.0000076294, y: -106.6}
+  m_SizeDelta: {x: 284.8431, y: 19.5926}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1133916977
 MonoBehaviour:
@@ -4678,7 +4664,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name Field cannot be empty
+  m_text: Insufficient Input! Enter at least 2 characters.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4768,7 +4754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1175752123}
   m_Layer: 5
-  m_Name: WinState
+  m_Name: WinStateUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4853,7 +4839,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4951,7 +4937,7 @@ GameObject:
   - component: {fileID: 1257175604}
   - component: {fileID: 1257175603}
   m_Layer: 5
-  m_Name: Text - Score (TMP)
+  m_Name: ScoreText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5087,7 +5073,7 @@ GameObject:
   - component: {fileID: 1278130766}
   - component: {fileID: 1278130767}
   m_Layer: 5
-  m_Name: HighscoreState
+  m_Name: HighscoreStateUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5138,7 +5124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa182992eed181c4b9ab1ff5816ec328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  liste:
+  m_highscoreUIElements:
   - {fileID: 875134478}
   - {fileID: 1959562492}
   - {fileID: 321126106}
@@ -5204,7 +5190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5265,7 +5251,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5621,7 +5607,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5682,7 +5668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6204,7 +6190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6583,16 +6569,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c669ac2c8851b4e9456cfac8f2a177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LevelManager
-  BrickCounter: {fileID: 169525519}
-  BallCounter: {fileID: 365547490}
-  GameOverUI: {fileID: 924288845}
-  GameWonUI: {fileID: 1175752122}
-  HighscoreScreenUI: {fileID: 1278130765}
-  MenuScreenUI: {fileID: 921403852}
-  PlayUI: {fileID: 577960339}
-  SubmittedText: {fileID: 191114948}
-  SubmittedTextFailed: {fileID: 1133916977}
-  scoreNumberText: {fileID: 1257175603}
+  m_brickCounterText: {fileID: 169525519}
+  m_ballCounterText: {fileID: 365547490}
+  m_gameOverScreenUI: {fileID: 924288845}
+  m_gameWonScreenUI: {fileID: 1175752122}
+  m_highscoreScreenUI: {fileID: 1278130765}
+  m_menuScreenUI: {fileID: 921403852}
+  m_playScreenUI: {fileID: 577960339}
+  m_submittedNameInputField: {fileID: 2018999488}
+  m_invalidSubmittedText: {fileID: 1133916977}
+  m_scoreText: {fileID: 1257175603}
 --- !u!114 &1664449770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6605,9 +6591,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9c1bfe724c9d54e82da809b533274c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemFactory
-  psPrefab: {fileID: 8000752074938381437, guid: 8161bced49727ad4f8e43401e5a5bc98, type: 3}
-  dbPrefab: {fileID: 6447933426200480532, guid: b74bd03c7221f0540b154010e452e7d7, type: 3}
-  suPrefab: {fileID: 385781131095417034, guid: 1477aca6c212d614c8a7a9b54ad073b6, type: 3}
+  m_goPaddleSizePrefab: {fileID: 8000752074938381437, guid: 8161bced49727ad4f8e43401e5a5bc98, type: 3}
+  m_goDoubleBallPrefab: {fileID: 6447933426200480532, guid: b74bd03c7221f0540b154010e452e7d7, type: 3}
+  m_goSpeedUpPrefab: {fileID: 385781131095417034, guid: 1477aca6c212d614c8a7a9b54ad073b6, type: 3}
 --- !u!114 &1664449771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6632,8 +6618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0e03a7e9f44af142882007f5f5d7e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  m_iScore: 0
-  m_bTimerActive: 0
 --- !u!1001 &1743385591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6688,7 +6672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7156,7 +7140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7217,7 +7201,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7689,7 +7673,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7760,7 +7744,6 @@ GameObject:
   - component: {fileID: 1985308143}
   - component: {fileID: 1985308142}
   - component: {fileID: 1985308141}
-  - component: {fileID: 1985308140}
   m_Layer: 5
   m_Name: Button - Menu
   m_TagString: Untagged
@@ -7788,18 +7771,6 @@ RectTransform:
   m_AnchoredPosition: {x: 174.2, y: -0.0000040531}
   m_SizeDelta: {x: 116.3747, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1985308140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1985308138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7f08a69008dedf4f8fdd219bc60657b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuScript
 --- !u!114 &1985308141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7948,7 +7919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8185,6 +8156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brick (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8244,7 +8219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8750,6 +8725,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blocker
       objectReference: {fileID: 0}
+    - target: {fileID: 1196409721874750433, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8617768017812078298, guid: fdb62238e36031d4b9cb58def40ed774, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5
@@ -8849,7 +8828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7175818981391442861, guid: c43a8eb3b6b07f44cb0d107dea04c684, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8870,7 +8849,7 @@ PrefabInstance:
       objectReference: {fileID: 1560148021}
     - target: {fileID: 2273579039284129573, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
       propertyPath: m_Name
-      value: Ball
+      value: ball
       objectReference: {fileID: 0}
     - target: {fileID: 2614793749800583376, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
       propertyPath: m_LocalPosition.x

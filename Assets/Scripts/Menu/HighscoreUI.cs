@@ -1,10 +1,8 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 
 public class HighscoreUI : MonoBehaviour
 {
-
-    [SerializeField] public GameObject[] liste = new GameObject[11];
-  
+  [SerializeField] GameObject[] m_highscoreUIElements = new GameObject[11];
+    public GameObject[] HighscoreUIElements => m_highscoreUIElements;
 }

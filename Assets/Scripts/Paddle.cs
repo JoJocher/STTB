@@ -3,33 +3,27 @@ using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour
 {
-    static Vector3 v3Mouse;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public float BasePaddleScaleX { get; private set; }
+    private void Awake()
     {
-        
+       BasePaddleScaleX  = transform.localScale.x;
+    }
+    void Update()
+    {
+        Vector3 v3Mouse = Mouse.current.position.ReadValue();
+        MovePaddle(v3Mouse);
     }
 
-    Vector3 thisPos;
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        v3Mouse = Mouse.current.position.ReadValue();
-        PaddleMovement(v3Mouse);
+    void MovePaddle(Vector3 _mousePosition) 
+    { 
+        Vector3 v3PaddlePosition = transform.position;
+
+        v3PaddlePosition.x = Camera.main.ScreenToWorldPoint(_mousePosition).x;
+        transform.position = v3PaddlePosition;
     }
 
-    void PaddleMovement(Vector3 _v3Mouse) 
+   public void ScalePaddleWidth(float _sizeMultiplier)
     {
-        
-        thisPos = this.transform.position;
-
-        thisPos.x = Camera.main.ScreenToWorldPoint(_v3Mouse).x;
-        this.transform.position = thisPos;
-    }
-
-   public void PaddleSize(float sizeMultiplicator)
-    {
-        Transform Paddle = this.GetComponent<Transform>();
-        Paddle.localScale = new Vector2 (Paddle.localScale.x * sizeMultiplicator, Paddle.localScale.y) ;
+        transform.localScale = new Vector3(transform.localScale.x * _sizeMultiplier, transform.localScale.y, transform.localScale.z);
     }
 }

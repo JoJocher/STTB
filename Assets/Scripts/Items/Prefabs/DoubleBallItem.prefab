@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 617f1476e8cf5114fa2ad36224fd4515, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoubleBallItem
-  ballPrefab: {fileID: 2273579039284129573, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
+  m_goBallPrefab: {fileID: 2273579039284129573, guid: 267d659a395ee164ca83247d5c653f71, type: 3}
 --- !u!58 &8679736274266538640
 CircleCollider2D:
   m_ObjectHideFlags: 0

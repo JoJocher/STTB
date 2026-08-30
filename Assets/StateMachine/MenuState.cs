@@ -1,33 +1,25 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MenuState : StateMachineBehaviour
 {
-    LevelManager lvManager;
-    Ball m_Ball;
+    Ball m_ball;
    
     void Awake()
     {
-        lvManager = GameObject.FindGameObjectWithTag("levelmanager").GetComponent<LevelManager>();
-
-        m_Ball = GameObject.Find("Ball").GetComponent<Ball>();
-
-        m_Ball.m_bIsMenu = true;
+       m_ball = GameObject.FindGameObjectWithTag(ConstantValues.BallTag).GetComponent<Ball>();
+        m_ball.IsMenu = true;
     }
-
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        lvManager.MenuScreen(true);
+        LevelManager.Instance.SetMenuScreenActive(true);
     }
-
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        m_Ball.m_bIsMenu = false;
-        m_Ball.StartMovement();
-       lvManager.MenuScreen(false);
-       
+        m_ball.IsMenu=false;
+        m_ball.StartMovement();
+       LevelManager.Instance.SetMenuScreenActive(false);
     }
 }
   

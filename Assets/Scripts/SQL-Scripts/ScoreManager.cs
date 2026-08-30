@@ -1,120 +1,111 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; }
-    [SerializeField] public  int m_iScore; // { get; set; }
-    public bool m_bTimerActive;
-    string m_sName;
+    public int Score { get; private set; }
+    public bool IsTimerActive { get; private set; }
+    public string PlayerName { get; private set; }
 
-    HighscoreDatabase database;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    HighscoreDatabase m_database;
+
     void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
         Instance = this;
-
-       
-
-        
-        // m_iScore = 50;
+        IsTimerActive = false;
     }
 
     void Start()
     {
-        database = new HighscoreDatabase();
-        database.CreateDatabase();
-        database.CleanHighscores();
-
-
-        StartCoroutine(PointTimer());
-        //m_bTimerActive = true;
+        m_database = new HighscoreDatabase();
+        m_database.CreateDatabase();
+        m_database.CleanHighscores();
     }
 
 
-
-    IEnumerator PointTimer()
+    IEnumerator RunPointTimer()
     {
-        while (m_bTimerActive)
+        while (IsTimerActive)
         {
             yield return new WaitForSeconds(1f);
 
-            if (m_iScore >= 1)
-                m_iScore -= 1;
-        }
-    }
-
-  public void AddPoint(PointType p_pointType)
-    {
-        switch (p_pointType)
-        {
-            case PointType.brick:
-                m_iScore += 20;
+            if (!IsTimerActive)
                 break;
 
-            case PointType.item:
-                m_iScore += 30;
+            if (Score >= 1)
+                Score -= 1;
+        }
+    }
+
+    public void StartPointTimer()
+    {
+        IsTimerActive = true;
+        StartCoroutine(RunPointTimer());
+    }
+
+    public void StopPointTimer()
+    {
+        IsTimerActive = false;
+    }
+
+    public void AddPoints(PointType _pointType)
+    {
+        switch (_pointType)
+        {
+            case PointType.Brick:
+                Score += 20;
+                break;
+
+            case PointType.Item:
+                Score += 30;
                 break;
         }
     }
 
-    public void PointToList(string _name)
+    public void SaveResult(string _name)
     {
-        
-        database.SaveHighscore(_name, m_iScore);
-        m_sName = _name;
+        m_database.SaveHighscore(_name, Score);
+        PlayerName = _name;
     }
 
-   public List<string> PointsFromList()
+    public List<string> GetHighscoreList()
     {
-        
-        List<HighscoreEntry> _hs = database.LoadHighscores();
-        List<string> list = new List<string>();
+        List<HighscoreEntry> highscoreEntries = m_database.LoadHighscores();
+        List<string> highscoreList = new List<string>();
 
-        for (int i = 0; i < _hs.Count; i++)
-        {
-            list.Add((i+1) + "     " + _hs[i].playerName + "     " + _hs[i].Score);
-            Debug.Log(list[i]);
-        }
-
-
-        return list;
+        for (int i = 0; i < highscoreEntries.Count; i++)
+            highscoreList.Add((i + 1) + "     " + highscoreEntries[i].PlayerName + "     " + highscoreEntries[i].Score);
+        return highscoreList;
     }
 
-    public int LastEntryInRanking()
+    public int GetRankOfLastEntry()
     {
+        int iRank = 1;
+        List<HighscoreEntry> highscoreEntries = m_database.LoadHighscores();
+        HighscoreEntry latestHighscoreEntry = highscoreEntries.First();
 
-        int rank = 1;
-        List<HighscoreEntry> _hs = database.LoadHighscores();
-        HighscoreEntry hse = _hs.First();
-    
-        
-        for (int i = 1; i < _hs.Count; i++)
-        {
-            if (hse.Id < _hs[i].Id)
+        //The most recently saved entry is retrieved based on the highest Id
+        for (int i = 1; i < highscoreEntries.Count; i++)
+            if (latestHighscoreEntry.Id < highscoreEntries[i].Id)
             {
-                rank = i + 1;
-                hse = _hs[i];
+                iRank = i + 1;
+                latestHighscoreEntry = highscoreEntries[i];
             }
-            
-        }
-       
-        return rank;
 
+        return iRank;
     }
-    
 }
 
 public enum PointType
 {
-    brick,
-    item
+    Brick,
+    Item
 }
-

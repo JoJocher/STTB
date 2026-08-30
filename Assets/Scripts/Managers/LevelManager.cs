@@ -1,152 +1,149 @@
-using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-   [SerializeField] TMP_Text BrickCounter;
-   [SerializeField] TMP_Text BallCounter;
+    public static LevelManager Instance { get; private set; }
 
-   [SerializeField] GameObject GameOverUI;
-    [SerializeField] GameObject GameWonUI;
-    [SerializeField] GameObject HighscoreScreenUI;
-    [SerializeField] GameObject MenuScreenUI;
-    [SerializeField] GameObject PlayUI;
+    [SerializeField] TMP_Text m_brickCounterText;
+    [SerializeField] TMP_Text m_ballCounterText;
 
-    [SerializeField] TMP_Text SubmittedText;
-    [SerializeField] TMP_Text SubmittedTextFailed;
+    [SerializeField] GameObject m_gameOverScreenUI;
+    [SerializeField] GameObject m_gameWonScreenUI;
+    [SerializeField] GameObject m_highscoreScreenUI;
+    [SerializeField] GameObject m_menuScreenUI;
+    [SerializeField] GameObject m_playScreenUI;
 
-   // ScoreManager scoreManager;
-    [SerializeField] TMP_Text scoreNumberText;
+    [SerializeField] TMP_InputField m_submittedNameInputField;
+    [SerializeField] TMP_Text m_invalidSubmittedText;
+
+    [SerializeField] TMP_Text m_scoreText;
 
     int m_iBrickCountOld;
     int m_iBallCountOld;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    int m_iScoreOld;
+
     void Awake()
     {
-     //   scoreManager = this.gameObject.GetComponent<ScoreManager>().Instance;
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
     }
+
     void Start()
     {
-        BrickCounterText();
-        BallCounterText();
-        ScoreCounterText();
+        UpdateBrickCounterText();
+        UpdateBallCounterText();
+        UpdateScoreCounterText();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Brick.bricks.Count != m_iBrickCountOld)
-            BrickCounterText();
-        
-        
-        if (Ball.balls.Count != m_iBallCountOld)
-            BallCounterText();
-    
-
-        if(Brick.bricks.Count <= 0)
-        {
-            //gewonnen
-            //
-           // gameObject.GetComponent<ScoreManager>().m_bTimerActive = false;
-           // gameObject.GetComponent<ScoreManager>().m_iScore;
-
-        }
+        if (Brick.s_Bricks.Count != m_iBrickCountOld)
+            UpdateBrickCounterText();
+        if (Ball.s_Balls.Count != m_iBallCountOld)
+            UpdateBallCounterText();
+        if (ScoreManager.Instance.IsTimerActive && ScoreManager.Instance.Score != m_iScoreOld)
+            UpdateScoreCounterText();
     }
 
 
-    void BrickCounterText()
+    void UpdateBrickCounterText()
     {
-        m_iBrickCountOld = Brick.bricks.Count;
-        BrickCounter.text = " " + Brick.bricks.Count;
+        m_iBrickCountOld = Brick.s_Bricks.Count;
+        m_brickCounterText.text = Brick.s_Bricks.Count.ToString();
     }
 
-    void BallCounterText()
+    void UpdateBallCounterText()
     {
-        m_iBallCountOld = Ball.balls.Count;
-        BallCounter.text = " " + Ball.balls.Count;
+        m_iBallCountOld = Ball.s_Balls.Count;
+        m_ballCounterText.text = Ball.s_Balls.Count.ToString();
     }
 
-    void ScoreCounterText()
+    void UpdateScoreCounterText()
     {
-        scoreNumberText.text = " " + ScoreManager.Instance.m_iScore;
-        
-        
+        m_iScoreOld = ScoreManager.Instance.Score;
+        m_scoreText.text = ScoreManager.Instance.Score.ToString();
     }
 
     public void GameWonSubmit()
     {
 
-        if (SubmittedText.text.Trim().Length >= 2)
+        if (m_submittedNameInputField.text.Length >= 2)
         {
-            ScoreManager.Instance.PointToList(SubmittedText.text);
-
-
-            HighscoreScreen(true, false);
-            Debug.Log("submittet text: " + SubmittedText.text);
-
-            
+            ScoreManager.Instance.SaveResult(m_submittedNameInputField.text);
+            SetHighscoreScreen(true, false);
         }
         else
-            SubmittedTextFailed.gameObject.SetActive(true);
-    }
-    
-    public void PlayScreen(bool _is)
-    {
-        PlayUI.SetActive(_is);
+            m_invalidSubmittedText.gameObject.SetActive(true);
     }
 
-    public void GameOver(bool _is)
+    public void SetPlayScreenActive(bool _isActive)
     {
-        GameOverUI.SetActive(_is);
-
+        m_playScreenUI.SetActive(_isActive);
     }
 
-    public void GameWon(bool _is)
+    public void SetGameOverScreenActive(bool _isActive)
     {
-        GameWonUI.SetActive(_is);
+        m_gameOverScreenUI.SetActive(_isActive);
     }
 
-    public void MenuScreen(bool _is)
+    public void SetGameWonScreenActive(bool _isActive)
     {
-        MenuScreenUI.SetActive(_is);
+        m_gameWonScreenUI.SetActive(_isActive);
     }
 
-    public void HighscoreScreen(bool _isA, bool _isM)
+    public void SetMenuScreenActive(bool _isActive)
     {
-        HighscoreScreenUI.SetActive(_isA);
-        if (_isA)
+        m_menuScreenUI.SetActive(_isActive);
+    }
+
+    public void SetHighscoreScreen(bool _isActive, bool _isFromMenu)
+    {
+        m_highscoreScreenUI.SetActive(_isActive);
+        if (_isActive)
         {
 
-            List<string> _hs = ScoreManager.Instance.PointsFromList();
+            List<string> highscoreList = ScoreManager.Instance.GetHighscoreList();
 
-            GameObject[] goListe = HighscoreScreenUI.GetComponent<HighscoreUI>().liste;
+            GameObject[] highscoreUIElements = m_highscoreScreenUI.GetComponent<HighscoreUI>().HighscoreUIElements;
+            // The last UI element is reserved for displaying the final rank of the player
+            int iLastUIElementIndex = highscoreUIElements.Length - 1;
 
-            for(int i = 0; i < _hs.Count; i++)
+            for (int i = 0; i < highscoreList.Count; i++)
+                highscoreUIElements[i].GetComponent<TMP_Text>().text = highscoreList[i];
+
+            if (!_isFromMenu)
             {
-                goListe[i].GetComponent<TMP_Text>().text = _hs[i];
-            }
+                int iRank = ScoreManager.Instance.GetRankOfLastEntry();
+                int iScore = ScoreManager.Instance.Score;
+                string strPlayerName = ScoreManager.Instance.PlayerName;
 
-            if (_isM == false)
-            {
-                int iRank = ScoreManager.Instance.LastEntryInRanking();
-                int iSCore = ScoreManager.Instance.m_iScore;
-
-                goListe[10].gameObject.SetActive(true);
-                goListe[10].GetComponent<TMP_Text>().text = "Your Rank: " + iRank + " Your Score: " + iSCore;
+                highscoreUIElements[iLastUIElementIndex].SetActive(true);
+                highscoreUIElements[iLastUIElementIndex].GetComponent<TMP_Text>().text = strPlayerName + "! Your Rank: " + iRank + " Your Score: " + iScore;
             }
             else
             {
-               // goListe[10].GetComponent<TMP_Text>().text = " ";
-                goListe[10].gameObject.SetActive(false);
+                highscoreUIElements[iLastUIElementIndex].SetActive(false);
             }
         }
 
     }
+}
 
-    //public void HighscoreScreen(bool _isA)
-    //{
-    //    HighscoreScreenUIl.SetActive(_isA);
-    //}
+public static class ConstantValues
+{
+    public const string ItemTag = "item";
+    public const string PaddleTag = "paddle";
+    public const string GameScene = "GameScene";
+    public const string BallTag = "ball";
+    public const string LevelmanagerTag = "levelmanager";
+
+    public const int MaxPaddleScaleIncreases = 3;
+    public const float PaddleSizeFactor = 1.25f;
 
 }

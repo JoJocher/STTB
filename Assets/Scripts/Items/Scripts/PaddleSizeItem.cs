@@ -1,57 +1,27 @@
 using UnityEngine;
 
 public class PaddleSizeItem : TimedItem
-
 {
+    GameObject m_goPaddle;
+    float m_fMaxPaddleSize;
 
-    /* PaddleSizeItem(Vector2 pos) : base(pos)
-     {
-
-     }
-    */
-
-    GameObject goPaddle;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-   override protected void Start()
+    protected override void Start()
     {
-       goPaddle = GameObject.FindGameObjectWithTag("paddle");
+        m_goPaddle = GameObject.FindGameObjectWithTag(ConstantValues.PaddleTag);
+        m_fMaxPaddleSize = m_goPaddle.GetComponent<Paddle>().BasePaddleScaleX * Mathf.Pow(ConstantValues.PaddleSizeFactor, ConstantValues.MaxPaddleScaleIncreases); 
         base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    protected override TimedEffectType EffectType => TimedEffectType.PaddleSize;
 
-    }
-      protected override TimedEffectType ItemName
-    {
-        get
-        {
-            return TimedEffectType.paddlesize;
-        }
-    }
+    protected override float EffectDuration => 8f;
 
-    protected override float ItemTime
-    {
-        get
-        {
-            return 5f;
-        }
-    }
+    protected override void ApplyTimedEffect() => PaddleSizeUp();
 
-  protected override void ApplyTimedEffect()
-    {
-        PaddleSizeUp();
-        Debug.Log("Apply Effect3");
-    }
-   
+
     void PaddleSizeUp()
     {
-        goPaddle.GetComponent<Paddle>().PaddleSize(1.25f);
-        Debug.Log("Apply Effect4");
+        if (m_goPaddle.GetComponent<Transform>().localScale.x < m_fMaxPaddleSize)
+            m_goPaddle.GetComponent<Paddle>().ScalePaddleWidth(ConstantValues.PaddleSizeFactor);
     }
-
-
-  
 }

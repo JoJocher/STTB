@@ -1,66 +1,37 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    ItemFactory itemFactory;
-    Transform BrickTransform;
-
-    public static List<Brick> bricks = new List<Brick>();
-    public static List<Brick> deadbricks = new List<Brick>();
-   int m_iLeben = 3;
-    int m_iID;
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    ItemFactory m_itemFactory;
+    public static readonly List<Brick> s_Bricks = new List<Brick>();
+    int m_iLives = 3;
 
     void Awake()
     {
-
-        itemFactory = GameObject.FindGameObjectWithTag("levelmanager").GetComponent<ItemFactory>();
-        BrickTransform = GetComponent<Transform>();
+        m_itemFactory = GameObject.FindGameObjectWithTag(ConstantValues.LevelmanagerTag).GetComponent<ItemFactory>();
 
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.color = Random.ColorHSV(0f, 1f /*Farbton*/, 0.7f, 1f /*Sättigung*/, 0.7f, 1f /*Helligkeit*/);
+        spriteRenderer.color = Random.ColorHSV(0f, 1f /*Hue*/, 0.7f, 1f /*Saturation*/, 0.7f, 1f /*Brightness*/);
 
-        bricks.Add(this);
-        m_iID = bricks.Count - 1;
+        s_Bricks.Add(this);
     }
 
-
-    void Start()
-    {
- 
-    }
-
-    
 
     void OnCollisionEnter2D()
     {
+        m_iLives--;
 
-        m_iLeben--;
-
-        if( m_iLeben <= 0 )
-
+        if (m_iLives <= 0)
         {
-            this.gameObject.SetActive(false);
-            // destroy den brick & trigger ein item
-            bricks.Remove(this);
-            deadbricks.Add(this);
-            itemFactory.ItemRandomizer(BrickTransform);
-
-            ScoreManager.Instance.AddPoint(PointType.brick);
-
+            gameObject.SetActive(false);
+            m_itemFactory.SpawnRandomItem(transform);
+            ScoreManager.Instance.AddPoints(PointType.Brick);
         }
-
     }
 
-void OnDisable()
+    void OnDisable()
     {
-        bricks.Remove(this);
+        s_Bricks.Remove(this);
     }
 }

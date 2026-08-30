@@ -1,169 +1,155 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 public class Ball : MonoBehaviour
 {
-    public static List<Ball> balls = new List<Ball>();
-    [SerializeField] BoxCollider2D paddleColl;
-    /*Ball(int speedMult)
-    {
-        m_iSpeedMultiplier = speedMult;
-    }*/
+    public static readonly List<Ball> s_Balls = new List<Ball>();
 
-    public int m_iSpeedMultiplier = 2;
-    
-    float fContactX;
-    float fPaddleCenterX;
-    float fHitOffsetFromPaddleCenter;
-    float fHalfWidthPaddle;
-    float fPaddleHitRelativePosX;
-    Vector2 v2DirectionNormalized;
-    Rigidbody2D ballRb;
+    BoxCollider2D m_paddleCollider;
+    public float BaseSpeed { get; } = 2.5f;
+    float m_fSpeed;
+    readonly float m_fMinYDirection = 0.2f;
+    Rigidbody2D m_rbBall;
+    ContactPoint2D m_contactPoint;
+    Vector2 m_v2LinVelocity;
 
-    ContactPoint2D contactPoint;
+    public bool IsMenu { get; set; }
 
-    Vector2 m_v2LinVelo;
-
-    [SerializeField] public bool m_bIsMenu; //{  get; set; }
-    
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        paddleColl = GameObject.FindGameObjectWithTag("paddle").GetComponent<BoxCollider2D>();
-        balls.Add(this);
-        Debug.Log("Ball Count: " + balls.Count);
-        ballRb = this.GetComponent<Rigidbody2D>();
+        m_fSpeed = BaseSpeed;
 
-        m_v2LinVelo = new Vector2();
+        m_paddleCollider = GameObject.FindGameObjectWithTag(ConstantValues.PaddleTag).GetComponent<BoxCollider2D>();
 
-          
-       // m_v2LinVelo = ballRb.linearVelocity;
+        s_Balls.Add(this);
 
+        m_rbBall = GetComponent<Rigidbody2D>();
+
+        m_v2LinVelocity = m_rbBall.linearVelocity;
     }
 
     void Start()
     {
-        if (!m_bIsMenu)
-            StartMovement();
+        if (!IsMenu)
+            SpawnMovement();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-       // Debug.Log(ballRb.linearVelocity);
-        m_v2LinVelo = ballRb.linearVelocity;
+        //before Unity does the collision resolving, store the linear velocity
+        m_v2LinVelocity = m_rbBall.linearVelocity;
     }
 
+    void SpawnMovement()
+    {
+        int iRandomAngle = Random.Range(-3, 4) * 10;
+
+        Vector2 v2Direction = Quaternion.Euler(0f, 0f, iRandomAngle) * Vector2.down;
+        m_rbBall.linearVelocity = v2Direction * m_fSpeed;
+    }
 
     public void StartMovement()
     {
-        ballRb.linearVelocity = Vector2.down * m_iSpeedMultiplier;
+        m_rbBall.linearVelocity = Vector2.down * m_fSpeed;
     }
-    
+
     public void StopMovement()
     {
-        ballRb.linearVelocity = Vector3.zero;
+        m_rbBall.linearVelocity = Vector2.zero;
     }
 
-    public void SetMultiplier(int mult)
+    public void SetSpeed(float _newSpeed)
     {
-        m_iSpeedMultiplier = mult;
-
+        m_fSpeed = _newSpeed;
+        ApplyMovement(m_rbBall.linearVelocity.normalized);
     }
 
-
-
-
-
-
-    void HitCalculation(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D _collision)
     {
 
-
-        /*linVel = new Vector2(ballRb.linearVelocity.x, ballRb.linearVelocity.y);*/
-
-        contactPoint = collision.contacts[0];
-
-
-        //normale
-       Vector2 p_v2ContactNormal = contactPoint.normal;
-
-        //Reflektion bzw Skalarprodukt
-
-        Vector2 p_v2ReflectedlinVel = new Vector2();
-
-       p_v2ReflectedlinVel = Vector2.Reflect(m_v2LinVelo, p_v2ContactNormal); //ballRb.linearVelocity
-
-        Debug.Log("Reflected " + p_v2ReflectedlinVel);
-
-        //if p_v2ReflectedlinVel 
-        ballRb.linearVelocity = p_v2ReflectedlinVel;
-        m_v2LinVelo = ballRb.linearVelocity; //speichern für Hits vor dem FixedUpdate
-    }
-
-    void PaddleHitCalculation(Collision2D collision)
-    {
-        contactPoint = collision.contacts[0];
-        fContactX = contactPoint.point.x;
-        fPaddleCenterX = paddleColl.bounds.center.x;
-
-        fHitOffsetFromPaddleCenter = fContactX - fPaddleCenterX;
-
-        fHalfWidthPaddle = paddleColl.bounds.extents.x;
-
-        fPaddleHitRelativePosX = fHitOffsetFromPaddleCenter / fHalfWidthPaddle;
-
-        v2DirectionNormalized = new Vector2(fPaddleHitRelativePosX, 1f);
-
-    }
-
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("ball"))
+        if (_collision.gameObject.CompareTag(ConstantValues.BallTag))
             return;
-        Debug.Log("Contact Point: " + contactPoint.point);
-      //  Debug.Log(this.gameObject.name);
-       // Debug.Log("Wie viele Kontakte " + collision.contactCount);
+        m_contactPoint = _collision.contacts[0];
 
-      
-
-        if (collision.collider != paddleColl)
+        if (_collision.collider != m_paddleCollider)
         {
-            HitCalculation(collision);
+            Hit();
             return;
         }
-        PaddleHitCalculation(collision);
-
-       
-        
-  //      Debug.Log(v2DirectionNormalized);
-//     float fCurrentSpeed = ballRb.linearVelocity.magnitude;
-
-        ballRb.linearVelocity = v2DirectionNormalized * m_iSpeedMultiplier;
-            
-          //  v2DirectionNormalized * fCurrentSpeed;
-
-        // Vector2
-        
-
-      
-        Debug.Log("Paddle Relative Position " + fPaddleHitRelativePosX);
-
+        HitPaddle();
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void OnTriggerEnter2D(Collider2D _collider)
     {
-        if (coll.gameObject.CompareTag("levelmanager"))
-            Destroy(this.gameObject);    
+        if (_collider.gameObject.CompareTag(ConstantValues.LevelmanagerTag))
+            Destroy(gameObject);
     }
 
     void OnDisable()
     {
-        Debug.Log("Destroyed ball " + Ball.balls.IndexOf(this));
-        Debug.Log("Current ball count " + Ball.balls.Count);
-        balls.Remove(this);
-        Debug.Log("Remaining Ball Count " + Ball.balls.Count);
+        s_Balls.Remove(this);
     }
 
+
+    Vector2 CalculateHitDirection()
+    {
+        Vector2 v2Direction = m_v2LinVelocity.normalized;
+        Vector2 v2ContactNormal = m_contactPoint.normal;
+
+
+        if (Vector2.Dot(v2Direction, v2ContactNormal) < 0f)
+        {
+            Vector2 v2ReflectedDirection = Vector2.Reflect(v2Direction, v2ContactNormal);
+            return v2ReflectedDirection;
+        }
+        return v2Direction;
+    }
+
+    void Hit()
+    {
+        Vector2 v2Direction = CalculateHitDirection();
+        
+        // Preventing nearly horizontal movement so that the ball does not get stuck
+        if (Mathf.Abs(v2Direction.y) < m_fMinYDirection)
+        {
+            float fYSign;
+
+            if (!Mathf.Approximately(v2Direction.y, 0))
+                fYSign = Mathf.Sign(v2Direction.y);
+            else
+                fYSign = Mathf.Sign(m_contactPoint.normal.y);
+
+            v2Direction.y = fYSign * m_fMinYDirection;
+            v2Direction = v2Direction.normalized;
+        }
+        ApplyMovement(v2Direction);
+    }
+
+    void HitPaddle()
+    {
+        Vector2 v2Direction = CalculateHitDirection();
+
+        //Adjustment of the reflection direction depending on the relative hit position on the paddle
+        float fContactX = m_contactPoint.point.x;
+        float fPaddleCenterX = m_paddleCollider.bounds.center.x;
+
+        float fHitOffsetFromPaddleCenter = fContactX - fPaddleCenterX;
+
+        float fHalfWidthPaddle = m_paddleCollider.bounds.extents.x;
+
+        float fPaddleHitRelativePosX = fHitOffsetFromPaddleCenter / fHalfWidthPaddle;
+
+        v2Direction.x += fPaddleHitRelativePosX;
+
+        v2Direction = v2Direction.normalized;
+
+        v2Direction.y = Mathf.Max(Mathf.Abs(v2Direction.y), m_fMinYDirection);
+
+        ApplyMovement(v2Direction);
+    }
+
+    void ApplyMovement(Vector2 _direction)
+    {
+        m_rbBall.linearVelocity = _direction * m_fSpeed;
+        m_v2LinVelocity = m_rbBall.linearVelocity;
+    }
 }

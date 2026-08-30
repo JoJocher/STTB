@@ -3,176 +3,96 @@ using System.Collections.Generic;
 
 public class PowerUpManager : MonoBehaviour
 {
-    static List<TimerType> TimerList;
-    //bool b;
-  
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    static List<TimerData> s_timerList;
+
     void Awake()
     {
-        TimerList = new List<TimerType>();
+        s_timerList = new List<TimerData>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-       // Debug.Log("ES GIBT " + TimerList.Count + " TIMER!!");
-        for (int i = 0; i < TimerList.Count; i++)// (TimerType t in TimerList)
-        {
-
-            //hier timer ablaufen lassen, prüfen ob er noch laufen darf
-            //hier zudem effect abschalten wenn abgelaufen ist und bool isactive deaktivieren
-            if (TimerList[i].isActive)
+        for (int i = 0; i < s_timerList.Count; i++)
+            if (s_timerList[i].m_bIsActive)
             {
-              
-               TimerType t = TimerList[i];
-                Debug.Log("timer ist active! " + i);
+                TimerData timer = s_timerList[i];
 
-
-                if (t.timerTime >= Time.fixedDeltaTime)
-                {
-                    t.timerTime -= Time.fixedDeltaTime;
-
-                    TimerList[i] = t;
-
-                    
-
-                }
+                if (timer.m_fTimerTime >= Time.fixedDeltaTime)
+                    timer.m_fTimerTime -= Time.fixedDeltaTime;
                 else
                 {
-                    t.isActive = false;
-                    TimerList[i] = t;
-
-                    BackToNormal(TimerList[i].tet, t.callAmount);
-                    t.callAmount = 0;
-                    TimerList[i] = t;
+                    timer.m_bIsActive = false;
+                    BackToNormal(timer.m_effectType, timer.m_iCallAmount);
+                    timer.m_iCallAmount = 0;
                 }
-               }
-
-            
-        }
-
-
+                //TimerData is a struct. Changes have to be written back.
+                s_timerList[i] = timer;
+            }
     }
 
-    void BackToNormal(TimedEffectType et, int callAmount)
+    void BackToNormal(TimedEffectType _timedEffectType, int _callAmount)
     {
-       
-        switch (et)
+        switch (_timedEffectType)
         {
-            case TimedEffectType.paddlesize:
-                for (; callAmount > 0; callAmount--)
+            case TimedEffectType.PaddleSize:
+                GameObject goPaddle = GameObject.FindGameObjectWithTag(ConstantValues.PaddleTag);
+
+                if (goPaddle != null)
                 {
-                    if (GameObject.FindGameObjectWithTag("paddle") != null)
-                        GameObject.FindGameObjectWithTag("paddle").GetComponent<Paddle>().PaddleSize(0.8f);
-                  //  Debug.Log("call Amount ist " + callAmount);
+                    Paddle paddle = goPaddle.GetComponent<Paddle>();
+                    
+                    for (; _callAmount > 0; _callAmount--)
+                        paddle.ScalePaddleWidth(1f/ ConstantValues.PaddleSizeFactor);
                 }
-                
-                //paddleSize Aufrufen;
                 break;
 
-            case TimedEffectType.speedup:
-                 for( int i = 0; i < Ball.balls.Count; i++)
-                {
-                    Ball.balls[i].SetMultiplier(2);
-                    Debug.Log("speedup Timer ende!");
-                }
+            case TimedEffectType.SpeedUp:
+                for (int i = 0; i < Ball.s_Balls.Count; i++)
+                    Ball.s_Balls[i].SetSpeed(Ball.s_Balls[i].BaseSpeed);
+
                 break;
-            
         }
+    }
 
-     }
-
-  public void pumTimer(TimedEffectType effecttype, float effectduration)
+    public void ActivateTimer(TimedEffectType _timedEffectType, float _effectDuration)
     {
-       
-        /*  bool isMissing = false;
+        bool bIsMissing = true;
 
-          //hier timer aktivieren und prüfen, ob bereits läuft
-          if (TimerList.Count > 0)
-          {
-
-              foreach (TimerType t in TimerList)
-              {
-                  if (t.tet != effecttype)
-                      isMissing = true;
-                  else
-                  {
-                      //bereits existenter Timer gefunden!
-                      isMissing = false;
-                      break;
-                  }
-              }
-
-
-
-          }
-
-          else
-              isMissing = true;
-
-         */
-        bool isMissing = true;
-/*
-        foreach (TimerType t in TimerList)
+        for (int i = 0; i < s_timerList.Count; i++)
         {
-
-            if (t.tet == effecttype)
+            TimerData timer = s_timerList[i];
+            if (timer.m_effectType == _timedEffectType)
             {
-                isMissing = false;
-                t.isActive = true;
-                break;
-            }
-        }*/
+                bIsMissing = false;
 
-        for(int i = 0; i <TimerList.Count; i++)
-        {
-            TimerType t = TimerList[i];
-            if (t.tet == effecttype)
-            {
-                isMissing = false;
+                timer.m_bIsActive = true;
+                timer.m_fTimerTime = _effectDuration;
 
-                t.isActive = true;
-                t.timerTime = effectduration;
-                
+                if (_timedEffectType == TimedEffectType.PaddleSize && timer.m_iCallAmount < ConstantValues.MaxPaddleScaleIncreases)
+                    timer.m_iCallAmount++;
 
-                if (effecttype == TimedEffectType.paddlesize)
-                    t.callAmount++;
-
-                TimerList[i] = t;
-
+                s_timerList[i] = timer;
                 break;
             }
         }
 
-
-
-
-        if (isMissing)
-            TimerList.Add(new TimerType(effectduration, effecttype, true, 1));
-
-        
-
-      /*
-        switch (effecttype)
-        {
-            case TimedEffectType.speedup: b = true; break;
-        } */
+        if (bIsMissing)
+            s_timerList.Add(new TimerData(_effectDuration, _timedEffectType, true, 1));
     }
 }
 
-struct TimerType
+struct TimerData
 {
-    public TimerType(float tT, TimedEffectType _tet, bool b, int cA)
+    public TimerData(float _timerTime, TimedEffectType _timedEffectType, bool _isActive, int _callAmount)
     {
-        timerTime = tT;
-        tet = _tet;
-
-        isActive = b;
-       callAmount = cA;
+        m_fTimerTime = _timerTime;
+        m_effectType = _timedEffectType;
+        m_bIsActive = _isActive;
+        m_iCallAmount = _callAmount;
     }
 
-    public float timerTime;
-   public TimedEffectType tet;
-    public bool isActive;
-    public int callAmount;
+    public float m_fTimerTime;
+    public TimedEffectType m_effectType;
+    public bool m_bIsActive;
+    public int m_iCallAmount;
 }
